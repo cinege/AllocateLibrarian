@@ -50,17 +50,18 @@ public class Week {
 	}
 	
 	public void randemptoslots() {
-		int timeslots = 5;
-
 		// The employee cannot be at 2 locations at the same time and can't work 2 shifts in a day but one is compulsory.
-		int locations = Location.values().length * 2;
-		for (int i = 0; i < timeslots; i++) {
-			int[][] nshuffle = shuffle(locations);
+		int days = 5;
+		int loclength = Location.values().length - 1;
+		int extloclength = loclength * 2;
+		for (int i = 0; i < days; i++) {
+			int[][] nshuffle = shuffle(extloclength);
 			for (int j = 0; j < Employee.values().length; j++) {
+				int eordinal = nshuffle[j / extloclength][j % extloclength];
 				int day = i;
-				int dedu = (j / locations) % 2;
-				int hier = j / (locations * 2);
-				int loc = nshuffle[hier][j % locations];
+				int dedu = (eordinal / loclength) % 2;
+				int loc = eordinal % loclength + 1;
+				int hier = j / extloclength;
 				this.slots[day][dedu][loc][hier].emp = Employee.values()[j];
 			}
 		}
@@ -74,24 +75,38 @@ public class Week {
     			list.add(j);
     		}
     		Collections.shuffle(list);
+    		System.out.println(list);
     		for (int j = 0; j < count; j++) {
     			array[i][j] = list.get(j);
     		}
     	}
     	return array;
     }
-    //@Overload
-    //public String toString() {
+    
+    
+    public String toString() {
+    	String result = "";
+    	for (Location l : Location.values()) {
+    		result += l.name() + "|"; 
+    	}
+    	result += "\n";
+    	for (int i = 0; i < 5; i++) {
+    		result += "\n";
+    		for (int j = 0; j < 2; j++) {
+    			result += "\n";
+    			for (int k = 0; k < 3; k++) {
+    				result += "\n";
+    				for (Location l : Location.values()) {
+    					if (this.slots[i][j][l.ordinal()][k].emp != null) {
+    						result += this.slots[i][j][l.ordinal()][k].emp + "|";
+    					} else {
+    						result += "000" + "|";
+    					}
+    				}
+    	    	}
+    		}		
+    	}
+    	return result;
+    }
     	
-		
-    	
-    //}
-
-	
-
-	
-
-	
-
-	
 }

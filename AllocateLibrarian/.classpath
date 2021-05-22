@@ -6,5 +6,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="C:/Tamas/java/jar/selenium.jar"/>
+	<classpathentry kind="lib" path="C:/Users/nt/git/AllocateLibrarian/AllocateLibrarian/lib/swt.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
