@@ -4,9 +4,9 @@ import java.util.stream.Stream;
 
 public class Enums {
 	public enum Location {
-		TAVOLLET,
+		TAVOLLET,	
 		HATTER,
-		OLVASO,
+		TAJEKOZTATO,
 		NYELVSTUDIO,
 		KOLCSONZO,
 		BEIRATKOZAS,
@@ -48,10 +48,20 @@ public class Enums {
 		Korabbi,
 		Kovetkezo,
 		Delutanosok,
-		Ellenorizd,
-		ImportCSV,
-		Save,
+		SpecFunkcio,
+		Betoltes,
+		Mentes,
 		Exit	
+	}
+	
+	public enum Role {
+		Penztaros,
+		Ugyeletvezeto,
+		Egeszsegugyi,
+		HomeOffice,
+		Betegseg,
+		Szabadsag,
+		Kitelepules
 	}
 	
 	

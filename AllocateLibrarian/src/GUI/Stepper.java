@@ -17,10 +17,20 @@ public class Stepper extends SelectionAdapter{
 	}
 	@Override
 	public void widgetSelected(SelectionEvent e) {
-		gui.removecontents();
-		gui.now = gui.now.plusDays(this.fw ? 7 : -7);
-		gui.dynamicContents();
-		//gui.shell.open();
-		gui.shell.layout();
+		if (fw) {
+			if (gui.week.next == null) {gui.week.createnext();}
+			gui.week = gui.week.next;
+			gui.populateddfields();
+			this.gui.shell.pack();
+		} else {
+			if (gui.week.previous != null) {
+				gui.week = gui.week.previous;
+				gui.populateddfields();
+				this.gui.shell.pack();
+			}
+		}
+				
+		
+		//this.gui.shell.open();
 	}
 }
