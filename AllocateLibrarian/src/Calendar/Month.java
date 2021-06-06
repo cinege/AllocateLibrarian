@@ -4,9 +4,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import Calendar.Enums.Employee;
-import Calendar.Enums.Location;
-import Calendar.Enums.Shift;
+import Calendar.Enums.Employees;
+import Calendar.Enums.Locations;
+import Calendar.Enums.Shifts;
 
 public class Month {
 	public LocalDate refdate;
@@ -45,10 +45,10 @@ public class Month {
 		}
 	}
 	
-	public int evshiftcount(Employee emp) {
+	public int evshiftcount(Employees emp) {
 		int  count = 0;
 		for (Day day : this.days) {
-			for (int i = 0; i < Location.values().length; i++) {
+			for (int i = 0; i < Locations.values().length; i++) {
 				for (int j = 0; j < 3; j++) {
 					if (day.slots[1][i][j].emp != null && day.slots[1][i][j].emp.equals(emp)) {count++;}
 				}

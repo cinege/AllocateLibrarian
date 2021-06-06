@@ -4,15 +4,15 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Combo;
 
-import Calendar.Enums.Employee;
-import Calendar.Enums.Location;
+import Calendar.Enums.Employees;
+import Calendar.Enums.Locations;
 
 public class RoleAdder extends SelectionAdapter{
 	GUI gui;
 	RoleAdder(GUI gui) {
 		this.gui = gui;
 	}
-	
+		
 	@Override
 	public void widgetSelected(SelectionEvent e) {
 		int[] ls = this.gui.lastfocus;

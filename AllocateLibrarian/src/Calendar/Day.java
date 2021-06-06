@@ -5,9 +5,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import Calendar.Enums.Employee;
-import Calendar.Enums.Location;
-import Calendar.Enums.Shift;
+import Calendar.Enums.Employees;
+import Calendar.Enums.Locations;
+import Calendar.Enums.Shifts;
+import Personal.Staff;
 
 public class Day {
 	public LocalDate thisd;
@@ -18,33 +19,33 @@ public class Day {
 		this.thisd = thisd;
 		this.weekday = this.thisd.getDayOfWeek().getValue() - 1;
 		this.today = this.thisd == LocalDate.now();
-		this.slots = new TTEntry[2][Location.values().length][3];
+		this.slots = new TTEntry[2][Locations.values().length][3];
 		for (int i = 0; i < 2; i++) {
-			for (Location l : Location.values()) {
+			for (Locations l : Locations.values()) {
 				for (int k = 0; k < 3; k++) {
 					this.slots[i][l.ordinal()][k] = new TTEntry(
 						this.thisd.getMonthValue(), 
 						this.thisd.getDayOfMonth(), 
 						l, 
-						Shift.values()[(this.weekday) * 2 + i]
+						Shifts.values()[(this.weekday) * 2 + i]
 					);	
 				}
 			}
 		}
 	}
 	
-	public void randemptoslots() {
+	public void randemptoslots(Staff staff) {
 		// The employee cannot be at 2 locations at the same time and can't work 2 shifts in a day but one is compulsory.
-		int loclength = Location.values().length - 1;
+		int loclength = Locations.values().length - 1;
 		int extloclength = loclength * 2;
 		
 		int[][] nshuffle = shuffle(extloclength);
-		for (int j = 0; j < Employee.values().length; j++) {
+		for (int j = 0; j < staff.employees.size(); j++) {
 			int eordinal = nshuffle[j / extloclength][j % extloclength];
 			int dedu = (eordinal / loclength) % 2;
 			int loc = eordinal % loclength + 1;
 			int hier = j / extloclength;
-			this.slots[dedu][loc][hier].emp = Employee.values()[j];
+			this.slots[dedu][loc][hier].emp = staff.employees.get(j);
 		}
 		
 	}
@@ -65,7 +66,7 @@ public class Day {
 	
 	public String toString() {
     	String result = "";
-    	for (Location l : Location.values()) {
+    	for (Locations l : Locations.values()) {
     		result += l.name() + "|"; 
     	}
     	
@@ -74,7 +75,7 @@ public class Day {
     		result += "\n";
     		for (int k = 0; k < 3; k++) {
     			result += "\n";
-    			for (Location l : Location.values()) {
+    			for (Locations l : Locations.values()) {
     				if (this.slots[j][l.ordinal()][k].emp != null) {
     					result += this.slots[j][l.ordinal()][k].emp + "|";
     				} else {

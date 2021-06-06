@@ -14,22 +14,22 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Writer;
 
-import Calendar.Enums.Employee;
-import Calendar.Enums.Location;
-import Calendar.Enums.Shift;
+import Calendar.Enums.Employees;
+import Calendar.Enums.Locations;
+import Calendar.Enums.Shifts;
 
 public class MSchedule {
 	public ArrayList<TTEntry> days = new ArrayList<TTEntry>();
-	public HashMap<String, HashMap<Location, ArrayList<Employee>>> monthoverview = new HashMap<String, HashMap<Location, ArrayList<Employee>>>();
+	public HashMap<String, HashMap<Locations, ArrayList<Employees>>> monthoverview = new HashMap<String, HashMap<Locations, ArrayList<Employees>>>();
 			
 	public void genMonthOverview() {
 		String monthdayshift = "";
-		HashMap<Location, ArrayList<Employee>> tmphashmap = null;
+		HashMap<Locations, ArrayList<Employees>> tmphashmap = null;
 		for (TTEntry entry : this.days) {
 			monthdayshift = String.valueOf(entry.month) + "-" + String.valueOf(entry.day) + "-" + String.valueOf(entry.shift);
 			
 			if (!monthoverview.containsKey(monthdayshift)) {
-				HashMap<Location, ArrayList<Employee>> newdailysched = new HashMap<Location, ArrayList<Employee>>();
+				HashMap<Locations, ArrayList<Employees>> newdailysched = new HashMap<Locations, ArrayList<Employees>>();
 				if(!newdailysched.containsKey(entry.location)) {newdailysched.put(entry.location, entry.emps);}
 				monthoverview.put(monthdayshift, newdailysched);
 			} else {
@@ -51,8 +51,8 @@ public class MSchedule {
 			ldate = LocalDate.of(year, month, i);
 			weekday = ldate.getDayOfWeek().getValue() - 1;
 			for (int k = 0; k < 2; k++) {
-				for (Location l : Location.values()) {
-					this.days.add(new TTEntry(month, i, l, Shift.values()[weekday*2 + k]));
+				for (Locations l : Locations.values()) {
+					this.days.add(new TTEntry(month, i, l, Shifts.values()[weekday*2 + k]));
 				}
 			}
 		}
@@ -61,15 +61,15 @@ public class MSchedule {
 			ldate = LocalDate.of(year, month, i);
 			weekday = ldate.getDayOfWeek().getValue() - 1;
 			if (weekday < 5) {
-				tEmpList = new ArrayList<Employee>();
-				for (Employee emp : Employee.values()) {
+				tEmpList = new ArrayList<Employees>();
+				for (Employees emp : Employees.values()) {
 					tEmpList.add(emp);
 				}
 				boolean newflag = true;
 				while (tEmpList.size() > 0) {
 					for (int k = 0; k < 2; k++) {
-						for (int j = 0; j < Location.values().length; j++) {
-							tmpentry = new TTEntry(month, i, Location.values()[j], Shift.values()[weekday*2 + k]);
+						for (int j = 0; j < Locations.values().length; j++) {
+							tmpentry = new TTEntry(month, i, Locations.values()[j], Shifts.values()[weekday*2 + k]);
 							if (tEmpList.size() > 0 && j > 0) {
 								randint = rand.nextInt(tEmpList.size());
 								tEmployee = tEmpList.get(randint);
@@ -103,9 +103,9 @@ public class MSchedule {
 		String monthday = "";
 		int month;
 		int day;
-		Location loc = null;
-		Shift shift = null;
-		ArrayList<Employee> emps = new ArrayList<Employee>();
+		Locations loc = null;
+		Shifts shift = null;
+		ArrayList<Employees> emps = new ArrayList<Employees>();
 		try {
 			reader = new BufferedReader(new FileReader("c:\\temp\\OIK.csv"));
 			String line = reader.readLine();
@@ -113,11 +113,11 @@ public class MSchedule {
 				monthday = line.split(",")[0];
 				month = Integer.valueOf(monthday.split("-")[0]);
 				day = Integer.valueOf(monthday.split("-")[1]);
-				loc = Location.valueOf(line.split(",")[1]);
-				shift = Shift.valueOf(line.split(",")[2]);
+				loc = Locations.valueOf(line.split(",")[1]);
+				shift = Shifts.valueOf(line.split(",")[2]);
 				emps.clear();
 				for(String tmp : line.split(",")[3].split(":")) {
-					emps.add(Employee.valueOf(tmp));
+					emps.add(Employees.valueOf(tmp));
 				}
 				
 				tmpentry = new TTEntry( month, day, loc, shift);
@@ -142,7 +142,7 @@ public class MSchedule {
 	public void printmonth(int year, int month) {
 		
 		System.out.print("Mikor,");
-		for (Location location: Location.values()) {
+		for (Locations location: Locations.values()) {
 			System.out.print(location + ",");
 		}
 		System.out.println("");
@@ -158,7 +158,7 @@ public class MSchedule {
 			    //System.out.println(this.monthoverview.toString());
 			    for (int j = 0; j < 2; j++) {
 			    	System.out.print(d[j] + ",");
-			    	for (Location loc : Location.values()) {System.out.print(this.monthoverview.get(d[j]).get(loc).toString() + ",");}
+			    	for (Locations loc : Locations.values()) {System.out.print(this.monthoverview.get(d[j]).get(loc).toString() + ",");}
 			    	System.out.println("");
 			    	
 			    }
@@ -168,10 +168,10 @@ public class MSchedule {
 		
 	}
 	
-	public int evshiftcount(Employee emp) {
+	public int evshiftcount(Employees emp) {
 		int  i = 0;
 		for (TTEntry entry : this.days) {
-			if (entry.emps.contains(emp) && entry.shift.equals(Shift.Hetfo_DU)) {
+			if (entry.emps.contains(emp) && entry.shift.equals(Shifts.Hetfo_DU)) {
 				i++;
 			}
 		}

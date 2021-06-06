@@ -1,10 +1,14 @@
 package Personal;
 
-import java.util.List;
-import Calendar.Enums.Location;
-import Calendar.Enums.Role;
+
+import Calendar.Enums.Shifts;
 
 public class Person {
 	public String name;
-	List<Role> roles;
+	public int kod;
+	public boolean expert;
+	public Shifts preferred;
+	public Person(String name) {
+		this.name = name;
+	}
 }

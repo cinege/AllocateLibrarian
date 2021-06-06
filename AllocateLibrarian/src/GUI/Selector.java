@@ -1,12 +1,12 @@
 package GUI;
 
-import Calendar.Enums.Location;
+import Calendar.Enums.Locations;
 
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Combo;
 
-import Calendar.Enums.Employee;
+import Calendar.Enums.Employees;
 
 public class Selector extends SelectionAdapter{
 	GUI gui;
@@ -22,7 +22,7 @@ public class Selector extends SelectionAdapter{
 		}
 		int newempindex = this.gui.cmbs[pos[0]][pos[1]][pos[2]][pos[3]].getSelectionIndex();
 		boolean refresh = removeEmp(newempindex, pos);
-		this.gui.week.days[pos[0]].slots[pos[1]][pos[2]][pos[3]].emp = Employee.values()[newempindex];	
+		this.gui.week.days[pos[0]].slots[pos[1]][pos[2]][pos[3]].emp = Employees.values()[newempindex];	
 		if (refresh) {
 			this.gui.shell.pack();
 			//this.gui.shell.open();
@@ -32,10 +32,10 @@ public class Selector extends SelectionAdapter{
 	boolean removeEmp(int newempindex, int[] pos) {
 		boolean result = false;
 		for (int i = 0; i < 2 ; i++) {
-			for (int j = 0; j < Location.values().length ; j++) {
+			for (int j = 0; j < Locations.values().length ; j++) {
 				for (int k = 0; k < 3 ; k++) {
 					if (i != pos[1] || j != pos[2] || k != pos[3]) {
-						Employee iteredemp = this.gui.week.days[pos[0]].slots[i][j][k].emp;
+						Employees iteredemp = this.gui.week.days[pos[0]].slots[i][j][k].emp;
 						if (iteredemp != null && iteredemp.ordinal() == newempindex) {
 							result = true;
 							Combo respectivecmb = this.gui.cmbs[pos[0]][i][j][k];

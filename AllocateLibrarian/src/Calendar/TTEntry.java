@@ -1,21 +1,26 @@
 package Calendar;
 import java.util.ArrayList;
+import java.util.List;
 
 import Calendar.Enums.*;
+import Personal.Person;
 
 public class TTEntry {
 	public int month;
 	public int day;
-	public Location location;
-	public Shift shift;
-	public Employee emp;
+	public Locations location;
+	public Shifts shift;
+	public Person emp;
+	public List<Roles> roles;
+	public Holidays holiday;
 
 	
-	public TTEntry (int month, int day, Location location, Shift shift) {
+	public TTEntry (int month, int day, Locations location, Shifts shift) {
 		this.month = month;
 		this.day = day;
 		this.location = location;
 		this.shift = shift;
+		this.roles = new ArrayList<Roles>();
 	}
 	public TTEntry clone() {
 		TTEntry newentry = new TTEntry(this.month, this.day, this.location, this.shift);

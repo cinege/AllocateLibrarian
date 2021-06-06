@@ -9,5 +9,6 @@
 	<classpathentry kind="lib" path="C:/Tamas/java/jar/selenium.jar"/>
 	<classpathentry kind="lib" path="C:/Users/nt/git/AllocateLibrarian/AllocateLibrarian/lib/swt64.jar"/>
 	<classpathentry kind="lib" path="C:/Users/nt/git/AllocateLibrarian/AllocateLibrarian/lib/itextpdf-5.5.13.jar"/>
+	<classpathentry kind="lib" path="C:/Tamas/java/jar/commons-logging-1.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

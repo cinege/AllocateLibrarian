@@ -3,7 +3,7 @@ package Calendar;
 import java.util.stream.Stream;
 
 public class Enums {
-	public enum Location {
+	public enum Locations {
 		TAVOLLET,	
 		HATTER,
 		TAJEKOZTATO,
@@ -12,7 +12,7 @@ public class Enums {
 		BEIRATKOZAS,
 		RAKTAR;
 	}
-	public enum Shift {
+	public enum Shifts {
 		Hetfo_DE,
 		Hetfo_DU,
 		Kedd_DE,
@@ -24,40 +24,25 @@ public class Enums {
 		Pentek_DE,
 		Pentek_DU;
 	}
-	public enum Employee {
-		E01,
-		E02,
-		E03,
-		E04,
-		E05,
-		E06,
-		E07,
-		E08,
-		E09,
-		E10,
-		E11,
-		E12,
-		E13,
-		E14,
-		E15,
-		E16,
-		E17
-	}
 	
-	public enum Button {
+	
+	public enum Buttons {
 		Korabbi,
 		Kovetkezo,
 		Delutanosok,
-		SpecFunkcio,
-		Betoltes,
-		Mentes,
+		Betoltes_CSV,
+		CSV_PDF,
+		Ellenorzes,
 		Exit	
 	}
 	
-	public enum Role {
+	public enum Roles {
 		Penztaros,
 		Ugyeletvezeto,
-		Egeszsegugyi,
+		Egeszsegugyi		
+	}
+	
+	public enum Holidays {
 		HomeOffice,
 		Betegseg,
 		Szabadsag,
@@ -68,17 +53,20 @@ public class Enums {
 	public static String[] enumtoarray(String myenum) {
 		String[] result = null;
 		switch (myenum) {
-			case "Employee":
-				result = Stream.of(Employee.values()).map(Employee::name).toArray(String[]::new);
+			case "Locations":
+				result = Stream.of(Locations.values()).map(Locations::name).toArray(String[]::new);
 				break;
-			case "Location":
-				result = Stream.of(Location.values()).map(Location::name).toArray(String[]::new);
+			case "Shifts":
+				result = Stream.of(Shifts.values()).map(Shifts::name).toArray(String[]::new);
 				break;
-			case "Shift":
-				result = Stream.of(Shift.values()).map(Shift::name).toArray(String[]::new);
+			case "Buttons":
+				result = Stream.of(Buttons.values()).map(Buttons::name).toArray(String[]::new);
 				break;
-			case "Button":
-				result = Stream.of(Button.values()).map(Button::name).toArray(String[]::new);
+			case "Holidays":
+				result = Stream.of(Holidays.values()).map(Holidays::name).toArray(String[]::new);
+				break;
+			case "Roles":
+				result = Stream.of(Roles.values()).map(Roles::name).toArray(String[]::new);
 				break;
 			default:
 				result = null;
@@ -86,4 +74,32 @@ public class Enums {
 		return result;
 	}
 	
+	public static Roles getrole(String ch) {
+		switch (ch) {
+		case "E" :
+			return Roles.Egeszsegugyi;
+		case "P" :
+			return Roles.Penztaros;
+		case "U" :
+			return Roles.Ugyeletvezeto;
+		default:
+			return null;
+		}
+	}
+	
+	public static Holidays getholiday(String ch) {
+		switch (ch) {
+		case "B" :
+			return Holidays.Betegseg;
+		case "H" :
+			return Holidays.HomeOffice;
+		case "S" :
+			return Holidays.Szabadsag;
+		case "K" :
+			return Holidays.Kitelepules;
+		default:
+			return null;
+		}
+	}	
 }
+ 

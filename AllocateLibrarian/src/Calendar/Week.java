@@ -6,15 +6,12 @@ import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalField;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
-import java.util.Random;
 
-import Calendar.Enums.Employee;
-import Calendar.Enums.Location;
-import Calendar.Enums.Shift;
+import Calendar.Enums.Locations;
+import Personal.Staff;
 
 public class Week {
 	public int ordinal;
@@ -55,10 +52,10 @@ public class Week {
 			this.next.previous = this;
 		}
 	}
-	public void randemptoslots() {
+	public void randemptoslots(Staff staff) {
 		int days = 5;
 		for (int i = 0; i < days; i++) {
-			this.days[i].randemptoslots();
+			this.days[i].randemptoslots(staff);
 		}
 	}
 	
@@ -80,7 +77,7 @@ public class Week {
     
     public String toString() {
     	String result = "";
-    	for (Location l : Location.values()) {
+    	for (Locations l : Locations.values()) {
     		result += l.name() + "|"; 
     	}
     	result += "\n";
