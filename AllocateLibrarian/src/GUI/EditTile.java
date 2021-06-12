@@ -21,7 +21,6 @@ public class EditTile extends SelectionAdapter{
 		
 	@Override
 	public void widgetSelected(SelectionEvent e) {
-
 		int empindex = this.gui.emplistcmb.getSelectionIndex();
 		int dayshiftindex = this.gui.shiftcmb.getSelectionIndex();
 		int locindex = this.gui.loccmb.getSelectionIndex();
@@ -42,7 +41,7 @@ public class EditTile extends SelectionAdapter{
 	
 	void adduser(int empindex, int dayindex, int shiftindex, int locindex, int holindex, int roleindex) {
 		Person emp;
-		Person newemp = this.gui.staff.employees.get(empindex);
+		Person newemp = this.gui.week.staff.employees.get(empindex);
 		Person[] empsinslot = new Person[3];
 		int pos = -1;
 		int freepos = 0;
@@ -57,8 +56,7 @@ public class EditTile extends SelectionAdapter{
 				}
 			}
 		}
-		if (pos == -1) {
-			//freepos = freepos > 2 ? 2 : freepos;
+		if (pos == -1 && freepos < 3) {
 			this.gui.week.days[dayindex].slots[shiftindex][locindex][freepos].emp = newemp;
 			setlabels(locindex, dayindex, shiftindex, freepos, holindex, roleindex);
 			for (int i = 0; i < 2 ; i++) {
@@ -78,11 +76,10 @@ public class EditTile extends SelectionAdapter{
 	
 	void removeuser(int empindex, int dayindex, int shiftindex, int locindex) {
 		Person iteremp;
-		Person emp = this.gui.staff.employees.get(empindex);
+		Person emp = this.gui.week.staff.employees.get(empindex);
 		for (int i = 0; i < 3; i++) {
 			iteremp = this.gui.week.days[dayindex].slots[shiftindex][locindex][i].emp;
 			if (iteremp == emp) {
-				System.out.println("OK");
 				this.gui.week.days[dayindex].slots[shiftindex][locindex][i].emp = null;
 				this.gui.week.days[dayindex].slots[shiftindex][locindex][i].holiday = null;
 				this.gui.week.days[dayindex].slots[shiftindex][locindex][i].roles.clear();
@@ -93,9 +90,7 @@ public class EditTile extends SelectionAdapter{
 	
 	void updateview() {
 		removeemptyslots();
-		this.gui.populateddfields();
-		//this.gui.holcmb.getItem(0);
-		this.gui.shell.pack();
+		this.gui.update(false);
 	}
 	
 	void removeemptyslots() {

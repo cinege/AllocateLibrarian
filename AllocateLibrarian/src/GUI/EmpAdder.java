@@ -13,9 +13,8 @@ public class EmpAdder  extends SelectionAdapter{
 	
 	@Override
 	public void widgetSelected(SelectionEvent e) {
-		System.out.println(this.gui.empinputbox.getText());
-		this.gui.staff.employees.add(new Person(this.gui.empinputbox.getText()));
-		this.gui.emplistcmb.setItems(this.gui.staff.toArray());
-		this.gui.staff.write();
+		this.gui.week.staff.employees.add(new Person(this.gui.empinputbox.getText()));
+		this.gui.emplistcmb.setItems(this.gui.week.staff.toArray());
+		this.gui.update(true);
 	}
 }

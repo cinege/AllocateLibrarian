@@ -1,12 +1,7 @@
 package GUI;
 
-import java.time.LocalDate;
-
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Shell;
 
 public class Stepper extends SelectionAdapter{
 	GUI gui;
@@ -17,20 +12,17 @@ public class Stepper extends SelectionAdapter{
 	}
 	@Override
 	public void widgetSelected(SelectionEvent e) {
+		String filepath = this.gui.path + this.gui.week.csvfilename;
+		//String filepath = path + "beosztas" + String.valueOf(this.gui.week.year) + "-" + String.valueOf(this.gui.week.ordinal) + ".csv";
+		this.gui.week.writetocsv(filepath);
 		if (fw) {
-			if (gui.week.next == null) {gui.week.createnext();}
+			if (gui.week.next == null) {this.gui.week.createnext(true);}
 			gui.week = gui.week.next;
-			gui.populateddfields();
-			this.gui.shell.pack();
 		} else {
-			if (gui.week.previous != null) {
-				gui.week = gui.week.previous;
-				gui.populateddfields();
-				this.gui.shell.pack();
-			}
-		}
+			if (gui.week.previous == null) {this.gui.week.createprev(true);}
+			gui.week = gui.week.previous;
 				
-		
-		//this.gui.shell.open();
+		}
+		this.gui.update(true);
 	}
 }

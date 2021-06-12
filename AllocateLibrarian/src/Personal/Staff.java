@@ -14,12 +14,12 @@ public class Staff {
 	public int nextavailable; 
 	public Staff(){
 		this.employees = new ArrayList<Person>();
-		read();
+		//read();
 	}
 	
 	public void add(String name) {
 		this.employees.add(new Person(name));
-		write();
+		//write();
 	}
 	
 	public void write() {
@@ -57,16 +57,34 @@ public class Staff {
 	}
 	
 	public String[] toArray() {
+		
 		String[] result = new String[this.employees.size()];
 		for (int i = 0; i < this.employees.size(); i++) {
 			result[i] = this.employees.get(i).name;
 		}
 		return result;
 	}
+	@Override
+	public String toString() {
+		String result = "";
+		for (int i = 0; i < this.employees.size(); i++) {
+			if (result.length() > 0) {result += ",";}
+			result += this.employees.get(i).name;
+		}
+		return result;
+	}
+	
 	public Person getperson(String name) {
 		Optional<Person> matchingObject = this.employees.stream().filter(p -> p.name.equals(name)).findFirst();
 		Person p = matchingObject.orElse(null);
 		return p;
+	}
+	public Staff clone() {
+		Staff newstaff = new Staff();
+		for (Person emp: this.employees) { 
+			newstaff.employees.add(emp) ;
+		}
+		return newstaff;
 	}
 	
 }
